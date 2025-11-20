@@ -12,6 +12,19 @@ const queries = {
     });
     return token;
   },
+  getCurrentLoggedInUser: async (_: any, parameters: any, context: any) => {
+    if (context && context.user) {
+      const id = context.user.id;
+
+      if (!id) throw new Error("User not logged in");
+
+      const user = await UserService.getUserById(id);
+      if (!user) throw new Error("User not found");
+
+      return user;
+    }
+    throw new Error("User not logged in");
+  },
 };
 
 const mutations = {

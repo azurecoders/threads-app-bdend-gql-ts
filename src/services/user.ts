@@ -23,6 +23,18 @@ class UserService {
     return hashedPassword;
   }
 
+  public static decodeJwtToken(token: string) {
+    return jwt.verify(token, process.env.JWT_SECRET!);
+  }
+
+  public static getUserById(id: string) {
+    return prisma.user.findUnique({
+      where: {
+        id,
+      },
+    });
+  }
+
   public static createUser(payload: CreateUserPayload) {
     const { firstName, lastName, email, password } = payload;
 
