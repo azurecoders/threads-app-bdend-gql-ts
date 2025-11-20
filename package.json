@@ -24,10 +24,12 @@
     "@prisma/adapter-pg": "^7.0.0",
     "@prisma/client": "^7.0.0",
     "@types/express": "^5.0.5",
+    "@types/jsonwebtoken": "^9.0.10",
     "body-parser": "^2.2.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
     "pg": "^8.16.3",
     "tsc-watch": "^7.2.0"
   }
