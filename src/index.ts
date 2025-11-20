@@ -3,6 +3,7 @@ import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@as-integrations/express5";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
+import { prisma } from "./lib/db.js";
 
 dotenv.config();
 
@@ -18,11 +19,30 @@ async function init() {
         hello: String
         say(name: String!): String
       }
+
+      type Mutation {
+        createUser(firstName: String!, lastName: String!, email: String!, password: String!): Boolean
+      }
     `,
     resolvers: {
       Query: {
         hello: () => "Hello World",
         say: (_, { name }) => `Hello ${name}`,
+      },
+      Mutation: {
+        createUser: async (_, { firstName, lastName, email, password }) => {
+          await prisma.user.create({
+            data: {
+              firstName,
+              lastName,
+              email,
+              password,
+              salt: "random_salt",
+            },
+          });
+
+          return true;
+        },
       },
     },
   });
