@@ -2,15 +2,19 @@
   "name": "threads-app-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "type": "module",
   "scripts": {
+    "build": "npm run prisma:generate && tsc -p tsconfig.build.json",
+    "prisma:generate": "prisma generate",
+    "prisma:push": "prisma db push",
     "start": "node dist/index.js",
-    "dev": "tsc-watch --onSuccess \"npm start\""
+    "dev": "tsc-watch --onSuccess \"npm start\"",
+    "render-build": "npm run build && npm run prisma:push"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
   "devDependencies": {
     "@types/node": "^24.10.1",
     "@types/pg": "^8.15.6",
